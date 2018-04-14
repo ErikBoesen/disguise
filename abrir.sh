@@ -4,6 +4,7 @@ RED="\e[31m"
 GREEN="\e[32m"
 RESET="\e[0m"
 
+function task { printf "* $1.\n"; }
 function fail {
     printf "${RED}$1${RESET}\n" >&2
     exit 1
