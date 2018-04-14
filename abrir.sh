@@ -1,8 +1,16 @@
 #!/bin/bash
 
-if [[ $# -lt 2 ]]; then
-    echo "Not enough arguments!"
+RED="\e[31m"
+GREEN="\e[32m"
+RESET="\e[0m"
+
+function fail {
+    printf "${RED}$1${RESET}\n" >&2
     exit 1
+}
+
+if [[ $# -lt 2 ]]; then
+    fail "Not enough arguments!"
 fi
 
 app_root="$1"
