@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ $# -lt 2 ]]; then
+    echo "Not enough arguments!"
+    exit 1
+fi
+
 app_root="$1"
 new_name="$2"
 info="$app_root/Contents/Info.plist"
