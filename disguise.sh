@@ -28,4 +28,4 @@ mv "$macos/$binary" "$macos/$new_name"
 task "Renaming bundle"
 mv "$app_root" "$(dirname "$app_root")/$new_name.app"
 
-succ "Success!"
+succ "Successfully disguised $app_root as $new_name."
