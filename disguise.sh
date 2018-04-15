@@ -19,7 +19,7 @@ app_root="$1"
 new_name="$2"
 info="$app_root/Contents/Info.plist"
 macos="$app_root/Contents/MacOS"
-binary="$(ls "$macos")"
+binary="$(/usr/libexec/PlistBuddy "$info" -c "Print :CFBundleExecutable")"
 
 task "Overwriting CFBundleExecutable property"
 plutil -replace CFBundleExecutable -string "$new_name" "$info"
