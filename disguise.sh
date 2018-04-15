@@ -9,6 +9,7 @@ function fail {
     printf "${RED}$1${RESET}\n" >&2
     exit 1
 }
+function succ { printf "${GREEN}$1${RESET}\n"; }
 
 if [[ $# -lt 2 ]]; then
     fail "Not enough arguments!"
@@ -26,3 +27,5 @@ task "Renaming binary"
 mv "$macos/$binary" "$macos/$new_name"
 task "Renaming bundle"
 mv "$app_root" "$(dirname "$app_root")/$new_name.app"
+
+succ "Success!"
