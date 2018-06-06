@@ -11,12 +11,15 @@ function fail {
 }
 function succ { printf "${GREEN}$1${RESET}\n"; }
 
-if [[ $# -lt 2 ]]; then
+if [[ $# -lt 1 ]]; then
     fail "Not enough arguments!"
 fi
 
 app_root="$1"
 new_name="$2"
+if [[ -z $new_name ]]; then
+    new_name=$(openssl rand -hex 8)
+fi
 info="$app_root/Contents/Info.plist"
 macos="$app_root/Contents/MacOS"
 binary="$(/usr/libexec/PlistBuddy "$info" -c "Print :CFBundleExecutable")"
