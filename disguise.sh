@@ -20,15 +20,19 @@ new_name="$2"
 if [[ -z $new_name ]]; then
     new_name=$(openssl rand -hex 8)
 fi
-info="$app_root/Contents/Info.plist"
-macos="$app_root/Contents/MacOS"
+
+task "Copying application folder"
+cp -a "$app_root" "$new_name"
+
+info="$new_name/Contents/Info.plist"
+macos="$new_name/Contents/MacOS"
 binary="$(/usr/libexec/PlistBuddy "$info" -c "Print :CFBundleExecutable")"
 
-task "Overwriting CFBundleExecutable property"
-plutil -replace CFBundleExecutable -string "$new_name" "$info"
-task "Renaming binary"
+task "Overwriting CFBundleName property"
+plutil -replace CFBundleName -string "$new_name" "$info"
+task "Renaming executable"
 mv "$macos/$binary" "$macos/$new_name"
-task "Renaming bundle"
-mv "$app_root" "$(dirname "$app_root")/$new_name.app"
+task "Creating symlink"
+ln -s "$new_name" "$binary"
 
 succ "Successfully disguised $app_root as $new_name."
