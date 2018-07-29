@@ -33,6 +33,7 @@ plutil -replace CFBundleName -string "$new_name" "$info"
 task "Renaming executable"
 mv "$macos/$binary" "$macos/$new_name"
 task "Creating symlink"
+cd "$macos"
 ln -s "$new_name" "$binary"
 
 succ "Successfully disguised $app_root as $new_name."
