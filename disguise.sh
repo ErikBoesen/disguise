@@ -18,7 +18,7 @@ fi
 app_root="$1"
 new_name="$2"
 if [[ -z $new_name ]]; then
-    new_name=$(openssl rand -hex 8)
+    new_name=$(openssl rand -hex 8).app
 fi
 
 info="$app_root/Contents/Info.plist"
