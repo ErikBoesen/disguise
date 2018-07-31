@@ -27,13 +27,14 @@ cp -a "$app_root" "$new_name"
 info="$new_name/Contents/Info.plist"
 macos="$new_name/Contents/MacOS"
 binary="$(/usr/libexec/PlistBuddy "$info" -c "Print :CFBundleExecutable")"
+new_binary=${new_name%.app}
 
 task "Overwriting CFBundleName property"
-plutil -replace CFBundleName -string "$new_name" "$info"
+plutil -replace CFBundleName -string "$new_binary" "$info"
 task "Renaming executable"
-mv "$macos/$binary" "$macos/$new_name"
+mv "$macos/$binary" "$macos/$new_binary"
 task "Creating symlink"
 cd "$macos"
-ln -s "$new_name" "$binary"
+ln -s "$new_binary" "$binary"
 
 succ "Successfully disguised $app_root as $new_name."
